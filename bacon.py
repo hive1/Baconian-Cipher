@@ -48,6 +48,7 @@ class Bacon:
         return returned
 
 
+
     @staticmethod
     def get_key(val):
         for key, value in Bacon.lookup.items():
@@ -56,23 +57,12 @@ class Bacon:
 
     @staticmethod
     def decrypt(s):
-        returned = ""
-        words = []
+        returned = []
 
         s = s.replace(" ", "")
+        undef_words = [s[i:i+5] for i in range(0, len(s), 5)]
 
-        # Break up encryption algorithm into groups of 5
-        # words = (s[i:i+5] for i in range(0, len(s), 5))
+        for word in undef_words:
+            returned += Bacon.get_key(word)
 
-        for i in range(0, len(s), 5):
-             words.append(s[i:i+5])
-
-        words = list(words)
-
-        for word in words:
-
-            print(word)
-            # print(str(Bacon.get_key(word)))
-            returned += str(Bacon.get_key(word))
-
-        return returned;
+        return ' '.join(returned)
